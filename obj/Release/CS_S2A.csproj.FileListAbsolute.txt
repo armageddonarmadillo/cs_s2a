@@ -1,0 +1,9 @@
+C:\Users\Ariel\source\repos\CS_S2A\bin\Release\CS_S2A.exe.config
+C:\Users\Ariel\source\repos\CS_S2A\bin\Release\CS_S2A.exe
+C:\Users\Ariel\source\repos\CS_S2A\bin\Release\CS_S2A.pdb
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.csproj.AssemblyReference.cache
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.Properties.Resources.resources
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.csproj.GenerateResource.cache
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.csproj.CoreCompileInputs.cache
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.exe
+C:\Users\Ariel\source\repos\CS_S2A\obj\Release\CS_S2A.pdb
