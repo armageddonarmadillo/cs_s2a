@@ -11,25 +11,28 @@ using System.Windows.Forms;
 namespace CS_S2A
 {
     /*
-         Screen Clearing
-         Player object
-         Enemy object
-         Shooting
-         Double Buffering
+     * Shooting
+     * Create Soldiers
+     * Move Soldiers
+     * Hitboxes (collisions)
+     * Bullet reflection
      */
     public partial class Main : Form
     {
         //Game Variables
-        Player mc;
-        Drawable thing2;
+        public static Player mc;
+        Enemy e1;
         Graphics wg; //Windows Graphics
         Graphics buffer_wg; //Buffer Windows Graphics
         Bitmap buffer;
+        public static Point offset;
 
         //Control Variables
         bool started, end, paused;
 
         //Game Lists
+        public static List<Bullet> bullets = new List<Bullet>();
+        public static List<Wall> walls = new List<Wall>();
 
         public Main()
         {
@@ -46,7 +49,15 @@ namespace CS_S2A
 
         private void gametimer_Tick(object sender, EventArgs e)
         {
-            thing2.angle += gametimer.Interval / 4;
+            mc.update(gametimer.Interval);
+            e1.update(gametimer.Interval);
+            foreach (Bullet b in bullets) b.update();
+
+            offset.X = (int)mc.loc.X - this.Width / 2;
+            offset.Y = (int)mc.loc.Y - this.Height / 2;
+
+            //clean up inactive objects
+            housekeeping();
             //this event needs a PaintEventArgs to describe what should happen during [it]
             OnPaint(new PaintEventArgs(wg, new Rectangle(0, 0, this.Width, this.Height)));
         }
@@ -54,7 +65,17 @@ namespace CS_S2A
         void init()
         {
             mc = new Player(225, 225);
-            thing2 = new Drawable("../img/Enemy_1.png", 425, 425);
+            e1 = new Enemy(425, 425);
+
+            //creating some walls
+            walls.Add(new Wall("Blue", 0, 0, this.Width, 10));                      //TOP
+            walls.Add(new Wall("Blue", 0, this.Height - 50, this.Width, 10));       //BOTTOM
+            walls.Add(new Wall("Orange", 0, 0, 10, this.Height));                   //LEFT              
+            walls.Add(new Wall("Orange", this.Width - 25, 0, 10, this.Height));     //RIGHT
+
+            //change input from screen's handler to player's handler
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(mc.key_down);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(mc.key_up);
         }
 
         void render(Object sender, PaintEventArgs e)
@@ -62,10 +83,17 @@ namespace CS_S2A
             //Clear screen before rendering
             buffer_wg.Clear(Color.FromArgb(255, 174, 200));
             mc.draw(buffer_wg);
-            thing2.draw(buffer_wg);
+            e1.draw(buffer_wg);
+            foreach (Bullet b in bullets) b.draw(buffer_wg);
+            foreach (Wall w in walls) w.draw(buffer_wg);
 
             //Render ends here, don't add more after this
             wg.DrawImage(buffer, new Point(0, 0));
+        }
+
+        void housekeeping() //removes inactive objects from lists
+        {
+            foreach (Bullet b in bullets) if (!b.active) { bullets.Remove(b); break; }
         }
     }
 }

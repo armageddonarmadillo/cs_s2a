@@ -14,8 +14,9 @@ namespace CS_S2A
         public PointF location;
         public PointF offset;
         public float angle = 0f;
+        public String type = "";
 
-        public Drawable(string path, int x, int y)
+        public Drawable(string path, float x, float y)
         {
             image = new Bitmap(path);
             location = new PointF(x, y);
@@ -37,6 +38,16 @@ namespace CS_S2A
                 new Rectangle(draw_location.X, draw_location.Y, image.Width, image.Height),
                 new Rectangle(0, 0, image.Width, image.Height),
                 GraphicsUnit.Pixel
+                );
+        }
+
+        public bool collides(Drawable e)
+        {
+            return (
+                    this.location.X < e.location.X + e.image.Width &&
+                    this.location.X + this.image.Width > e.location.X &&
+                    this.location.Y < e.location.Y + e.image.Height &&
+                    this.location.Y + this.image.Height > e.location.Y
                 );
         }
     }
