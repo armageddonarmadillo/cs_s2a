@@ -10,7 +10,7 @@ namespace CS_S2A
     {
         int hp = 5;
         int counter = 0, delay = 30;
-        public Enemy(int x, int y) : base("../img/Enemy_1.png", x, y)
+        public Enemy(int x, int y) : base("../img/Enemy2.png", x, y)
         {
             turn_dir = 0;
             walk_dir = 1;
@@ -47,7 +47,7 @@ namespace CS_S2A
             int dx = ex - px;                   //Difference along X
             int dy = ey - py;                   //Difference along Y
 
-            facing_angle = ((float)Math.Atan(dy / dx) + (float)(ex >= px ? Math.PI : 0)) * (float)(180 / Math.PI);
+            facing_angle = ((float)Math.Atan(dy / dx == 0 ? ex / (Math.Abs(ex)) : dx) + (float)(ex >= px ? Math.PI : 0)) * (float)(180 / Math.PI);
         }
     }
 }

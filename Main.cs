@@ -51,7 +51,7 @@ namespace CS_S2A
         {
             mc.update(gametimer.Interval);
             e1.update(gametimer.Interval);
-            foreach (Bullet b in bullets) b.update();
+            foreach (Bullet b in bullets) b.update(gametimer.Interval);
 
             offset.X = (int)mc.loc.X - this.Width / 2;
             offset.Y = (int)mc.loc.Y - this.Height / 2;

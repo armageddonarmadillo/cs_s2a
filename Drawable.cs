@@ -16,11 +16,18 @@ namespace CS_S2A
         public float angle = 0f;
         public String type = "";
 
-        public Drawable(string path, float x, float y)
+        //Animation variables
+        public int frame = 0;
+        public int frame_count;
+        public int frame_time;
+
+        public Drawable(string path, float x, float y, int frame_count, int frame_time)
         {
             image = new Bitmap(path);
             location = new PointF(x, y);
-            offset = new PointF(image.Width / 2, image.Height / 2);
+            this.frame_count = frame_count;
+            this.frame_time = frame_time;
+            offset = new PointF(image.Width / 2, image.Height / frame_count / 2);
         }
 
         public void draw(Graphics g)
@@ -35,8 +42,8 @@ namespace CS_S2A
             g.Transform = m; //apply modified matrix to graphics object
             g.DrawImage(
                 image,
-                new Rectangle(draw_location.X, draw_location.Y, image.Width, image.Height),
-                new Rectangle(0, 0, image.Width, image.Height),
+                new Rectangle(draw_location.X, draw_location.Y, image.Width, image.Height / frame_count),
+                new Rectangle(0, frame * (image.Height / frame_count), image.Width, image.Height / frame_count),
                 GraphicsUnit.Pixel
                 );
         }
@@ -49,6 +56,11 @@ namespace CS_S2A
                     this.location.Y < e.location.Y + e.image.Height &&
                     this.location.Y + this.image.Height > e.location.Y
                 );
+        }
+
+        public void update(int time)
+        {
+            frame = frame++ >= frame_count - 1 ? 0 : frame;
         }
     }
 }

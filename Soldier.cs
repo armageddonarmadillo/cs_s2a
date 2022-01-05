@@ -21,7 +21,7 @@ namespace CS_S2A
 
         public Soldier(String path, int x, int y)
         {
-            img = new Drawable(path, x, y);
+            img = new Drawable(path, x, y, 4, 60);
             velocity = new PointF();
             this.loc = new PointF(x, y);
         }
@@ -38,6 +38,7 @@ namespace CS_S2A
             velocity.X = (float)Math.Cos(facing_angle / 180f * Math.PI) * walk_dir * speed;
             velocity.Y = (float)Math.Sin(facing_angle / 180f * Math.PI) * walk_dir * speed;
             move();
+            img.update(time);
             fire();
 
             //collide solider against walls
@@ -59,7 +60,7 @@ namespace CS_S2A
         public void fire()
         {
             if (!shooting) return;
-            Bullet b = new Bullet("../img/bullet_1.png", img.type, loc.X, loc.Y, 5);
+            Bullet b = new Bullet("../img/bullet3.png", img.type, loc.X, loc.Y, 5);
             b.vel.X = (float)Math.Cos(facing_angle / 180f * Math.PI) * b.speed;
             b.vel.Y = (float)Math.Sin(facing_angle / 180f * Math.PI) * b.speed;
             Main.bullets.Add(b);

@@ -15,7 +15,7 @@ namespace CS_S2A
 
         public Wall(string color, int x, int y, int w, int h)
         {
-            img = new Drawable("../img/" + color + "Box.png", x, y);
+            img = new Drawable("../img/" + color + "Box.png", x, y, 1, 1);
             this.x = x;
             this.y = y;
             this.w = w;
@@ -42,6 +42,22 @@ namespace CS_S2A
             else np.Y = p.Y;                                        //default set np to p
 
             return np;                                              //return the newly filled np object         
+        }
+
+        public PointF normal(PointF p)
+        {
+            PointF np = nearest_point(p);
+
+            PointF normal = new PointF(p.X - np.X, p.Y - np.Y);
+
+            if (normal.X == 0 && normal.Y == 0) return normal;
+
+            float factor = 1f / (float)Math.Sqrt(normal.X * normal.X + normal.Y * normal.Y);
+
+            normal.X *= factor;
+            normal.Y *= factor;
+
+            return normal;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CS_S2A
     {
         int delay = 10, counter = 10;
 
-        public Player(int x, int y) : base("../img/Player_1.png", x, y)
+        public Player(int x, int y) : base("../img/Player.png", x, y)
         {
             img.type = "player";
         }
@@ -26,15 +26,16 @@ namespace CS_S2A
 
             if (e.KeyCode == Keys.Space)
             {
-                if (counter++ > delay)
-                {
-                    shooting = true;
-                    counter = 0;
-                }
-                else
-                {
-                    shooting = false;
-                }
+                shooting = true;
+                //if (counter++ > delay)
+                //{
+                //    shooting = true;
+                //    counter = 0;
+                //}
+                //else
+                //{
+                //    shooting = false;
+                //}
             }
         }
 
