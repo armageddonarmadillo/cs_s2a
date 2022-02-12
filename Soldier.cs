@@ -11,6 +11,7 @@ namespace CS_S2A
     public class Soldier
     {
         public Drawable img; //Image
+        public Weapon wep;
         public PointF loc; //Location
         public PointF velocity;
         public float facing_angle = 0;
@@ -30,6 +31,7 @@ namespace CS_S2A
         {
             img.angle = facing_angle;
             img.draw(g);
+            wep.draw(g);
         }
 
         public void update(int time)
@@ -38,9 +40,8 @@ namespace CS_S2A
             velocity.X = (float)Math.Cos(facing_angle / 180f * Math.PI) * walk_dir * speed;
             velocity.Y = (float)Math.Sin(facing_angle / 180f * Math.PI) * walk_dir * speed;
             move();
-            img.update(time);
-            fire();
-
+            if (walk_dir != 0) img.update(time);
+            wep.update(time, loc, facing_angle, img.type, shooting, this);
             //collide solider against walls
             foreach (Wall w in Main.walls)
             {
@@ -55,15 +56,6 @@ namespace CS_S2A
             loc.Y += velocity.Y;
             img.location.X = loc.X - Main.offset.X;
             img.location.Y = loc.Y - Main.offset.Y;
-        }
-
-        public void fire()
-        {
-            if (!shooting) return;
-            Bullet b = new Bullet("../img/bullet3.png", img.type, loc.X, loc.Y, 5);
-            b.vel.X = (float)Math.Cos(facing_angle / 180f * Math.PI) * b.speed;
-            b.vel.Y = (float)Math.Sin(facing_angle / 180f * Math.PI) * b.speed;
-            Main.bullets.Add(b);
         }
 
         public bool wall_collision(Wall w, ref PointF t)

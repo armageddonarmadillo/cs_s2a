@@ -67,11 +67,7 @@ namespace CS_S2A
             mc = new Player(225, 225);
             e1 = new Enemy(425, 425);
 
-            //creating some walls
-            walls.Add(new Wall("Blue", 0, 0, this.Width, 10));                      //TOP
-            walls.Add(new Wall("Blue", 0, this.Height - 50, this.Width, 10));       //BOTTOM
-            walls.Add(new Wall("Orange", 0, 0, 10, this.Height));                   //LEFT              
-            walls.Add(new Wall("Orange", this.Width - 25, 0, 10, this.Height));     //RIGHT
+            Level.level_loader("level2");
 
             //change input from screen's handler to player's handler
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(mc.key_down);
@@ -81,7 +77,7 @@ namespace CS_S2A
         void render(Object sender, PaintEventArgs e)
         {
             //Clear screen before rendering
-            buffer_wg.Clear(Color.FromArgb(255, 174, 200));
+            buffer_wg.Clear(Color.FromArgb(122, 87, 100));
             mc.draw(buffer_wg);
             e1.draw(buffer_wg);
             foreach (Bullet b in bullets) b.draw(buffer_wg);

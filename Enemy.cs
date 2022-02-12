@@ -16,6 +16,8 @@ namespace CS_S2A
             walk_dir = 1;
             shooting = true;
             img.type = "enemy";
+            wep = new Pistol(loc);
+            wep.delay = 50;
         }
 
         public void update(int time)
@@ -47,7 +49,7 @@ namespace CS_S2A
             int dx = ex - px;                   //Difference along X
             int dy = ey - py;                   //Difference along Y
 
-            facing_angle = ((float)Math.Atan(dy / dx == 0 ? ex / (Math.Abs(ex)) : dx) + (float)(ex >= px ? Math.PI : 0)) * (float)(180 / Math.PI);
+            //facing_angle = ((float)Math.Atan(dy / dx == 0 ? ex / (Math.Abs(ex)) : dx) + (float)(ex >= px ? Math.PI : 0)) * (float)(180 / Math.PI);
         }
     }
 }

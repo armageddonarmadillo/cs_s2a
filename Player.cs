@@ -16,6 +16,8 @@ namespace CS_S2A
         public Player(int x, int y) : base("../img/Player.png", x, y)
         {
             img.type = "player";
+            wep = new Toxic(loc);
+            wep.delay = 5;
         }
 
         public void key_down(Object sender, KeyEventArgs e)
